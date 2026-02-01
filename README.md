@@ -1,8 +1,8 @@
 # AMD MI50 Desktop Cooling Shroud
 
 Open source cooling solution for the **AMD Radeon Instinct MI50** (Vega 20). 
-OpenScad project, 3 parts, really easy to print.
 Designed to replace loud server blowers with 92mm standard desktop fan and acceptable noise.
+OpenScad project, modular, designed to be easy to print on commons 25cm x 25cm printers.
 
 The conception is specifically tailored for **92mm x 92mm x 25mm fans** (I recommend the **Arctic P9 Max**  for its high static pressure and affordability).
 
@@ -15,11 +15,9 @@ The conception is specifically tailored for **92mm x 92mm x 25mm fans** (I recom
 
 ## Features
 - **Three-Part Design:** Separate fan mount, heatsink duct, and logo plate for easier printing and assembly.
-- **Factory Fit:** Uses the original M2 mounting points on the MI50 PCB.
-- **Ducting:** Engineered to force air through the heatsink fins
+- **Factory Fit:** Uses the original M2 mounting points on the MI50 PCB. (Requires longer M2 screws than original)
+- **Ducting:** Engineered to force air through the heatsink fins for efficient cooling
 
-## Current Version
-- v1.0.0
 
 ## Project Structure
 - `shroud.scad`: Main design file.
