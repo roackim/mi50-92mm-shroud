@@ -174,11 +174,9 @@ module heatsink_shroud(length=160, width=100, height=30) {
   } // end translate
 }
 
-// translate([-254, 51, 0]) rotate([90]) color("#D22") letters_AMD(w);
-// translate([-65, 51, 0]) rotate([90]) color("#D22") letters_MI(w);
 
 parts = ["fan", "heatsink", "logo"];
-if (is_undef(part))
+if (is_undef(part)) // Full model preview --------------------------
 {
   difference () {
     translate([-w,-w/2,-gpu_h]) color("#222") fan_shroud();
@@ -188,27 +186,28 @@ if (is_undef(part))
     translate([-w,-w/2,-gpu_h]) color("#222") heatsink_shroud(length=172, width=w-th, height=fan_shroud_h);
     mi50_screw_holes(); 
   }
-  translate([-254, 51, 0])  rotate([90]) color("#D22") letters_AMD(w);
-  translate([-65, 51, 0]) rotate([90]) color("#D22") letters_MI(w);
+  translate([-250, 51, 0])  rotate([90]) color("#D22") letters_AMD(w);
+  translate([-62.5, 51, 0]) rotate([90]) color("#D22") letters_MI(w);
 }
-
-if (part == "fan")
-{
-  difference () {
-    translate([-w,-w/2,-gpu_h]) color("#222") fan_shroud();
-    mi50_screw_holes(); 
-  }
-} else if (part == "heatsink")
-{
-  difference () {
-    translate([-w,-w/2,-gpu_h]) color("#222") heatsink_shroud(length=172, width=w-th, height=fan_shroud_h);
-    mi50_screw_holes(); 
-  }
-} else if (part == "logo")
-{
-  color("#222") {
-    letters_AMD(w);
-    translate([0, 20, 0]) letters_MI(w);
+else { // Export selector ------------------------------------------
+  if (part == "fan")
+  {
+    difference () {
+      translate([-w,-w/2,-gpu_h]) color("#222") fan_shroud();
+      mi50_screw_holes(); 
+    }
+  } else if (part == "heatsink")
+  {
+    difference () {
+      translate([-w,-w/2,-gpu_h]) color("#222") heatsink_shroud(length=172, width=w-th, height=fan_shroud_h);
+      mi50_screw_holes(); 
+    }
+  } else if (part == "logo")
+  {
+    color("#222") {
+      letters_AMD(w);
+      translate([0, 20, 0]) letters_MI(w);
+    }
   }
 }
 
