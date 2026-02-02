@@ -158,7 +158,7 @@ module heatsink_shroud(length=160, width=100, height=30) {
     rvecube(x=rear_margin, y=width, z=height-heatsink_height, rnd=1);
     
     // secondary wall (width reducing)
-    translate([12, width - 1.75*th +e, 0]) // not full 'th' because blocked by metal stripe below screw hole
+    translate([9, width - 1.75*th +e, 0]) // not full 'th' because blocked by metal stripe below screw hole
       cube([10, th*0.77, height]);
     
     // Honey comb
@@ -197,12 +197,12 @@ parts = ["fan", "heatsink", "logo"];
 if (is_undef(part)) // Full model preview --------------------------
 {
   if (true) {
-    postprocessed_fan_shroud();
+    color("#BBB") postprocessed_fan_shroud();
     translate([-62.5, 49.5, 0]) rotate([90]) color("#D22") letters_MI(w); // letters
     // translate([-58, 49.5, 20]) rotate([90]) color("#D22") letters_MI(w); // letters
   }
   if (true) {
-    postprocessed_heatsink_shroud();
+    color("#BBB") postprocessed_heatsink_shroud();
     translate([-250, 47.5, 0])  rotate([90]) color("#D22") letters_AMD(w); // letters
   }
 }
