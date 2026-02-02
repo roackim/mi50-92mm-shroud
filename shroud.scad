@@ -52,10 +52,10 @@ module mi50_screw_holes() {
   // color("#FFFF00") translate([0.5, 43, -0.5]) rotate([0,0,90]) cube([12,1.0,1.0]);
   translate([-110, 48, -16]) rotate([270]) mi50_m2_screw();
 
-  // void_2
+  // void_3
   // translate([-110 - 143, 0, -16 +7])
   // color("#FFFF00") translate([0.5, 43, -0.5]) rotate([0,0,90]) cube([12,1.0,1.0]);
-  translate([-249, 46, -8]) rotate([270]) mi50_m2_screw();
+  translate([-251, 46, -9]) rotate([270]) mi50_m2_screw();
 }
 
 module vhole(h, r){
@@ -158,8 +158,8 @@ module heatsink_shroud(length=160, width=100, height=30) {
     rvecube(x=rear_margin, y=width, z=height-heatsink_height, rnd=1);
     
     // secondary wall (width reducing)
-    translate([9, width - 1.75*th +e, 0]) // not full 'th' because blocked by metal stripe below screw hole
-      cube([10, th*0.77, height]);
+    translate([8, width - 1.75*th +e, 0]) // not full 'th' because blocked by metal stripe below screw hole
+      cube([20, th*0.77, height]);
     
     // Honey comb
     honey_l = length-rear_margin-th-heatsink_overlap;
@@ -187,8 +187,8 @@ module postprocessed_fan_shroud() {
 
 module postprocessed_heatsink_shroud() {
   difference () {
-    translate([-w,-w/2,-gpu_h]) color("#222")
-      heatsink_shroud(length=168, width=w-th, height=fan_shroud_h);
+    translate([-w,-w/2,-gpu_h + 1.5]) color("#222")
+      heatsink_shroud(length=168, width=w-th, height=fan_shroud_h - 2*th);
     mi50_screw_holes(); 
   }
 }
