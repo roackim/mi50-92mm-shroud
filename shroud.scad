@@ -55,7 +55,7 @@ module mi50_screw_holes() {
   // void_3
   // translate([-110 - 143, 0, -16 +7])
   // color("#FFFF00") translate([0.5, 43, -0.5]) rotate([0,0,90]) cube([12,1.0,1.0]);
-  translate([-251, 46, -9]) rotate([270]) mi50_m2_screw();
+  translate([-252, 46, -8.5]) rotate([270]) mi50_m2_screw();
 }
 
 module vhole(h, r){
@@ -67,13 +67,21 @@ gpu_h = 22;
 fan_shroud_h = fan_h + th + gpu_h;
 
 module fan_shroud() {
-  height = fan_h + th + gpu_h;
+  bot_offset = 1.5;
+  height = fan_h + th + gpu_h - bot_offset;
+
   // color("red")
   // union () 
   {
+  translate([0,0, bot_offset])
   difference() 
   {
-    rvecube(w, w, height, 4);
+    union() {
+      rvecube(w, w, height, 4);
+      cube([5, 5, height]);
+      translate([0, w - 5, 0])
+        cube([5, 5, height]);
+    }
     
     rad=5.2/2;
     translate([  8,   8, height/2]) vhole(100, r=rad);
@@ -91,7 +99,10 @@ module fan_shroud() {
       translate([-1, th, -fan_h -th]) cube([w + 12, w-2*th, height]) ;
     }
   } // end difference
-  
+    
+  if (true) {
+  translate([0,0, bot_offset])
+  {
   // pci_2 stub
   color("#00FF00")
   translate([-12, -th/2 + e, 0])
@@ -106,14 +117,16 @@ module fan_shroud() {
     // void_2 stub
     color("#00FF00")
     translate([-18, w-th/2 + e, 0])
-      // cube([25, th, 12.5]);
       hull() {
-        translate([7, 0, 4])   rotate([90, 0, 0]) cylinder(h=th, r=4, center=true, $fn=22);
-        translate([12.5, 0, height-1])  rotate([90, 0, 0]) cylinder(h=th, r=1, center=true, $fn=12);
-        translate([33, 0, height-1])  rotate([90, 0, 0]) cylinder(h=th, r=1, center=true, $fn=12);
-        translate([37, 0, 0.1])   rotate([90, 0, 0]) cylinder(h=th, r=0.1, center=true, $fn=1);
-      }
+       translate([5, 0, 4])   rotate([90, 0, 0]) cylinder(h=th, r=4, center=true, $fn=22);
+       translate([2, 0, height-1])  rotate([90, 0, 0]) cylinder(h=th, r=1, center=true, $fn=12);
+       translate([33, 0, height-1])  rotate([90, 0, 0]) cylinder(h=th, r=1, center=true, $fn=12);
+       translate([37, 0, 0.1])   rotate([90, 0, 0]) cylinder(h=th, r=0.1, center=true, $fn=1);
+     }
+      
     }
+  }
+  }
 }
 
 module heatsink_shroud(length=160, width=100, height=30) {
@@ -186,9 +199,12 @@ module postprocessed_fan_shroud() {
 }
 
 module postprocessed_heatsink_shroud() {
+  
+  bot_offset = 1.5; // remove some height between m2 screws and pcb
+  
   difference () {
-    translate([-w,-w/2,-gpu_h + 1.5]) color("#222")
-      heatsink_shroud(length=168, width=w-th, height=fan_shroud_h - 2*th);
+    translate([-w,-w/2,-gpu_h + bot_offset]) color("#222")
+      heatsink_shroud(length=168, width=w-th, height=fan_shroud_h - bot_offset);
     mi50_screw_holes(); 
   }
 }
@@ -197,7 +213,7 @@ parts = ["fan", "heatsink", "logo"];
 if (is_undef(part)) // Full model preview --------------------------
 {
   if (true) {
-    color("#BBB") postprocessed_fan_shroud();
+    color("#A66") postprocessed_fan_shroud();
     translate([-62.5, 49.5, 0]) rotate([90]) color("#D22") letters_MI(w); // letters
     // translate([-58, 49.5, 20]) rotate([90]) color("#D22") letters_MI(w); // letters
   }
