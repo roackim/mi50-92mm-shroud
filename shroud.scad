@@ -40,7 +40,7 @@ module mi50_screw_holes() {
   // pci_3
   // translate([-103.5 - 148, 0, -16])
   // color("#FFFF00") translate([0.5, -55, -0.5]) rotate([0,0,90]) cube([12,1.0,1.0]);
-  translate([-247.25, -48, -16]) rotate([90]) mi50_m2_screw();
+  translate([-251.25, -48, -16]) rotate([90]) mi50_m2_screw();
 
   // void_1
   // translate([-8.5, 0, -16])
@@ -55,7 +55,7 @@ module mi50_screw_holes() {
   // void_2
   // translate([-110 - 143, 0, -16 +7])
   // color("#FFFF00") translate([0.5, 43, -0.5]) rotate([0,0,90]) cube([12,1.0,1.0]);
-  translate([-253, 46, -8]) rotate([270]) mi50_m2_screw();
+  translate([-249, 46, -8]) rotate([270]) mi50_m2_screw();
 }
 
 module vhole(h, r){
@@ -145,7 +145,7 @@ module heatsink_shroud(length=160, width=100, height=30) {
       translate([-10,th,-e]) cube([20, width-2*th, heatsink_height]);
       
       // pcie backplate stub place
-      translate([-e,th-10,-e]) cube([6, width-2*th, heatsink_height]);
+      translate([-e,th+10,-e]) cube([6, width-2*th, heatsink_height]);
       
     } // end diff
     
