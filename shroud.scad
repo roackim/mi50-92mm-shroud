@@ -55,7 +55,7 @@ module mi50_screw_holes() {
   // void_3
   // translate([-110 - 143, 0, -16 +7])
   // color("#FFFF00") translate([0.5, 43, -0.5]) rotate([0,0,90]) cube([12,1.0,1.0]);
-  translate([-252, 46, -8.5]) rotate([270]) mi50_m2_screw();
+  translate([-253, 46, -8.5]) rotate([270]) mi50_m2_screw();
 }
 
 module vhole(h, r){
@@ -182,8 +182,8 @@ module heatsink_shroud(length=160, width=100, height=30) {
         side=11, 
         wall=1.5, 
         h=th, 
-        type="hex", 
-        fn=12,
+        type="cirle", 
+        fn=24,
         shift=[1, 10.25],
         fill_incomplete=true
     );
