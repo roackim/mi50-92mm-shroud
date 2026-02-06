@@ -190,6 +190,62 @@ module heatsink_shroud(length=160, width=100, height=30) {
   } // end translate
 }
 
+module m3_screws() {
+    rad=2.25;
+    translate([5, 0, -17.5]) rotate([0, 90, 0])
+      m3_screw_hole(h=0, drill_depth=5);
+    translate([5, 16.125, -17.5]) rotate([0, 90, 0])
+      m3_screw_hole(h=0, drill_depth=5);
+    translate([5, 32.5, -17.5]) rotate([0, 90, 0])
+      m3_screw_hole(h=0, drill_depth=5);
+}
+
+module fan_ramp(length, height, w) {
+  
+    // front screws support
+    // we can assume the M3 screws are placed correctly
+    // all the others mesures are based on this
+    
+    // top height max indicator
+    // color("#FF00FF") translate([-100, 0, 0]) cube([100, 1, 1]);
+  
+    l_offset = 3.5;
+    v_offset = -24;
+  
+    w = w - 2.25*l_offset;
+    
+    fw = 39;
+    
+    difference() 
+    {
+      translate([0, l_offset, v_offset]) cube([th*1.5, fw, 23]); // backplate
+      color("yellow") translate([0,7,0]) m3_screws();
+    }
+    
+    
+    trih = 11;
+    tril = 45;
+    
+    translate([-8, l_offset, -12])
+    {
+    rotate([90, 0, 180])
+    linear_extrude(height=w)
+      polygon(points=[
+        [0, 0], 
+        [0, trih],
+        [tril, 0],
+      ]);
+      cube([10,fw,trih]);
+    }
+}
+
+
+module postprocessed_fan_ramp() {
+  iw = w - 2*th;
+  translate([0, -iw/2 , 0])
+  fan_ramp(10, 10, w=iw);
+}
+
 module postprocessed_fan_shroud() {
   difference () { // dig screw holes
     translate([-w,-w/2,-gpu_h]) color("#222") 
@@ -221,15 +277,25 @@ if (is_undef(part)) // Full model preview --------------------------
     color("#BBB") postprocessed_heatsink_shroud();
     translate([-250, 47.5, 0])  rotate([90]) color("#D22") letters_AMD(w); // letters
   }
+  
+  if (true) {
+    postprocessed_fan_ramp();
+  }
 }
 else { // Export selecter ------------------------------------------
   if (part == "fan")
   { 
     postprocessed_fan_shroud();
-  } else if (part == "heatsink")
+  } 
+  else if (part == "ramp")
+  {
+    postprocessed_fan_ramp();
+  } 
+  else if (part == "heatsink")
   {
     postprocessed_heatsink_shroud();
-  } else if (part == "logo")
+  } 
+  else if (part == "logo")
   {
     color("#222") {
       letters_AMD(w);

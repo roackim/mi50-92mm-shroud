@@ -81,4 +81,28 @@ module m2_screw_hole(h=5, head_depth=1.5, drill_depth=5, tol=0.2) {
     }
 }
 
+module m3_screw_hole(h=10, head_depth=2.0, drill_depth=10, tol=0.3) {
+    // Standard M3 Countersink Dimensions
+    drill_dia = 3.0 + tol;      // Shaft (Clearance hole)
+    head_dia_max = 6.0 + tol;   // Top of the countersink "V"
+    
+    extra = 0.1; // Overlap for clean boolean cuts
+
+    // We keep your translation logic to align the top of the hole with 'h'
+    translate([0, 0, -head_depth])
+    union() {
+        // 1. The Tapered Head Recess (M3 Countersink)
+        translate([0, 0, h - head_depth])
+            cylinder(d1=drill_dia, d2=head_dia_max, h=head_depth + extra, $fn=64);
+        
+        // 2. The Main Shaft
+        translate([0, 0, h - drill_depth])
+            cylinder(d=drill_dia, h=drill_depth, $fn=64);
+        
+        // 3. Clean-cut extension (Top)
+        translate([0, 0, h])
+            cylinder(d=head_dia_max, h=extra, $fn=64);
+    }
+}
+
 
