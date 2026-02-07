@@ -105,4 +105,14 @@ module m3_screw_hole(h=10, head_depth=2.0, drill_depth=10, tol=0.3) {
     }
 }
 
+// tol = 0.1 to 0.2 is usually perfect for most FDM printers
+module m3_nut(bolt_len = 10, nut_height = 2.4, nut_depth = 0, tol = 0.2) {
+
+    // add tolerance to the flat-to-flat width (5.5mm is standard)
+    // We also add a tiny bit to the height (2.4mm) for a flush fit
+    flat_to_flat = 5.5 + (tol * 2); 
+    
+    translate([0, 0, nut_depth])
+        cylinder(h = nut_height + tol, d = flat_to_flat / cos(30), $fn = 6); 
+}
 

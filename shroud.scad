@@ -55,7 +55,7 @@ module mi50_screw_holes() {
   // void_3
   // translate([-110 - 143, 0, -16 +7])
   // color("#FFFF00") translate([0.5, 43, -0.5]) rotate([0,0,90]) cube([12,1.0,1.0]);
-  translate([-253, 46, -8.5]) rotate([270]) mi50_m2_screw();
+  translate([-254, 48, -8.5]) rotate([270]) mi50_m2_screw();
 }
 
 module vhole(h, r){
@@ -100,7 +100,7 @@ module fan_shroud() {
     }
   } // end difference
     
-  if (true) {
+  if (false) {
   translate([0,0, bot_offset])
   {
   // pci_2 stub
@@ -141,7 +141,7 @@ module heatsink_shroud(length=160, width=100, height=30) {
     difference() {
       
       // outer shape
-      rvecube(length, width, height, rnd);
+      cube([length, width, height]);
       
       // interior hole
       translate([th, th, -th-1])
@@ -166,6 +166,19 @@ module heatsink_shroud(length=160, width=100, height=30) {
     translate([length-heatsink_overlap, 0, heatsink_height]) 
     rvecube(x=heatsink_overlap, y=width, z=height-heatsink_height, rnd=1);
     
+    // internal wall m3 connection
+    nh = 2.1 * 1.5;
+    difference() {
+    translate([length - 2.5*th, 0, 20]) 
+    cube([2.5*th, width, height - 25 - th]);
+    
+    
+    translate([length -th -nh , 0, 27]) {
+      translate([0,10,0]) rotate([0, 90, 0]) m3_nut(nut_height=nh, tol=0.1);
+      translate([0,w/2,0]) rotate([0, 90, 0]) m3_nut(nut_height=nh, tol=0.1);
+      translate([0,w-10,0]) rotate([0, 90, 0]) m3_nut(nut_height=nh, tol=0.1);
+    }
+  }
     // exit top heatsink airflow blocker
     translate([0, 0, heatsink_height])
     rvecube(x=rear_margin, y=width, z=height-heatsink_height, rnd=1);
@@ -182,7 +195,7 @@ module heatsink_shroud(length=160, width=100, height=30) {
         side=11, 
         wall=1.5, 
         h=th, 
-        type="cirle", 
+        type="hex", 
         fn=24,
         shift=[1, 10.25],
         fill_incomplete=true
@@ -192,7 +205,7 @@ module heatsink_shroud(length=160, width=100, height=30) {
 
 module m3_screws() {
     rad=2.25;
-    translate([5, 0, -17.5]) rotate([0, 90, 0])
+    translate([5, 0, -17.25]) rotate([0, 90, 0])
       m3_screw_hole(h=0, drill_depth=5);
     translate([5, 16.125, -17.5]) rotate([0, 90, 0])
       m3_screw_hole(h=0, drill_depth=5);
@@ -200,20 +213,21 @@ module m3_screws() {
       m3_screw_hole(h=0, drill_depth=5);
 }
 
+module m3_screws_internals(offset_depth=0) {
+    rad=2.25;
+    translate([offset_depth, 10, 0]) rotate([0, 90, 0])
+      m3_screw_hole(h=0, drill_depth=10);
+    translate([offset_depth, w/2, 0]) rotate([0, 90, 0])
+      m3_screw_hole(h=0, drill_depth=10);
+    translate([offset_depth, w-10, 0]) rotate([0, 90, 0])
+      m3_screw_hole(h=0, drill_depth=10);
+}
+
 module fan_ramp(length, height, w) {
   
-    // front screws support
-    // we can assume the M3 screws are placed correctly
-    // all the others mesures are based on this
-    
-    // top height max indicator
-    // color("#FF00FF") translate([-100, 0, 0]) cube([100, 1, 1]);
-  
     l_offset = 3.5;
-    v_offset = -24;
-  
+    v_offset = -24;  
     w = w - 2.25*l_offset;
-    
     fw = 39;
     
     difference() 
@@ -250,8 +264,12 @@ module postprocessed_fan_shroud() {
   difference () { // dig screw holes
     translate([-w,-w/2,-gpu_h]) color("#222") 
       fan_shroud();
-    mi50_screw_holes(); 
+    mi50_screw_holes();
+    
+    translate([-93.5, -w/2, 6.5])
+      m3_screws_internals();
   }
+
 }
 
 module postprocessed_heatsink_shroud() {
@@ -260,12 +278,37 @@ module postprocessed_heatsink_shroud() {
   
   difference () {
     translate([-w,-w/2,-gpu_h + bot_offset]) color("#222")
-      heatsink_shroud(length=168, width=w-th, height=fan_shroud_h - bot_offset);
+      heatsink_shroud(length=168, width=w, height=fan_shroud_h - bot_offset);
     mi50_screw_holes(); 
+    
+    translate([-93.5, -w/2, 6.5])
+      m3_screws_internals();
+  }
+}
+
+module test_ecrou(length = 10, width = 100, height = 50, th = 2) {
+  nh = 2.1;  // wall link
+  intersection() {
+  difference() 
+  {
+    translate([-2*th, 0, 20]) 
+    cube([2*th, width, height -25 -th]);
+    
+    
+    translate([-th-nh, 0, 27]) {
+      translate([0,10,0]) rotate([0, 90, 0]) m3_nut(bolt_len = 20, nut_height=nh, nut_depth = 0);
+      translate([0,w/2,0]) rotate([0, 90, 0]) m3_nut(bolt_len = 20, nut_height=nh, nut_depth = 0);
+      translate([0,w-10,0]) rotate([0, 90, 0]) m3_nut(bolt_len = 20, nut_height=nh, nut_depth = 0);
+    }
+  }
+    translate([-th-nh, 2.5, 17])
+    cube([30, 15, 18]);
   }
 }
 
 parts = ["fan", "heatsink", "logo"];
+// part = "test";
+
 if (is_undef(part)) // Full model preview --------------------------
 {
   if (true) {
@@ -301,6 +344,10 @@ else { // Export selecter ------------------------------------------
       letters_AMD(w);
       translate([0, 20, 0]) letters_MI(w);
     }
+  }
+  else if (part == "test")
+  {
+    test_ecrou();
   }
 }
 
