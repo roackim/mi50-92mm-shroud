@@ -14,8 +14,8 @@ The conception is specifically tailored for **92mm x 92mm x 25mm fans** (I recom
 ---
 
 ## Features
-- **Three-Part Design:** Separate fan mount, heatsink duct, and logo plate for easier printing and assembly.
-- **Factory Fit:** Uses the original M2 mounting points on the MI50 PCB. (Requires longer M2 screws than original)
+- **Three-Part Design:** Separate fan mount, heatsink duct, and ramp. Easily printable on small 3D printers.
+- **Factory Fit:** Uses M3 screws + bolt for assembly and M2 for GPU mounting (requires longer M2 screws than original)
 - **Ducting:** Engineered to force air through the heatsink fins for efficient cooling
 
 

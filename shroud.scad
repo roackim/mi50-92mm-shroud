@@ -307,21 +307,22 @@ module test_ecrou(length = 10, width = 100, height = 50, th = 2) {
 }
 
 parts = ["fan", "heatsink", "logo"];
-// part = "test";
+// part = "logo";
 
 if (is_undef(part)) // Full model preview --------------------------
 {
   if (true) {
-    color("#A66") postprocessed_fan_shroud();
-    translate([-62.5, 49.5, 0]) rotate([90]) color("#D22") letters_MI(w); // letters
-    // translate([-58, 49.5, 20]) rotate([90]) color("#D22") letters_MI(w); // letters
+    color("#DE6459") postprocessed_fan_shroud();
+    translate([-62.5, 50.5, 0]) rotate([90]) color("#D22") letters_MI(); // letters
   }
   if (true) {
-    color("#BBB") postprocessed_heatsink_shroud();
-    translate([-250, 47.5, 0])  rotate([90]) color("#D22") letters_AMD(w); // letters
+    color("#E6AF5C") postprocessed_heatsink_shroud();
+    translate([-250, 50.5, 0])  rotate([90]) color("#D22") letters_AMD(); // letters
+    translate([-185, 50.5, -15]) rotate([90]) color("#D22") amd_logo();
   }
   
   if (true) {
+    color("#65ACD6")
     postprocessed_fan_ramp();
   }
 }
@@ -341,8 +342,9 @@ else { // Export selecter ------------------------------------------
   else if (part == "logo")
   {
     color("#222") {
-      letters_AMD(w);
-      translate([0, 20, 0]) letters_MI(w);
+      letters_AMD();
+      translate([0, 20, 0]) letters_MI();
+      translate([65, -13, 0]) amd_logo();
     }
   }
   else if (part == "test")
