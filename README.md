@@ -6,6 +6,7 @@ OpenScad project, modular, designed to be easy to print on commons 25cm x 25cm p
 
 The conception is specifically tailored for **92mm x 92mm x 25mm fans** (I recommend the **Arctic P9 Max**  for its high static pressure and affordability).
 
+NOTE: some screws are not a perfect fit, as the placement for some of the GPU's m2 holes is not perfect yet. This could be improved.
 ---
 
 ![Shroud Bottom Overview](img/MI50_92mm_cooler_bot.png)
@@ -43,6 +44,13 @@ You will find the STLs in the `output/` folder
 - Material: Use PETG or ABS. Standard PLA may soften under the heat generated during heavy LLM inference.
 - Infill: 20% or higher.
 - Walls: Use at least 2 perimeters for the screw holes to ensure they don't crack.
+
+### Assembly tips
+
+- Deshroud your gpu (remove m2 screws, and the metal casing should go off)
+- Assemble the shrouds together using M3 screws and nuts.
+- Place the fan (intake) inside the shroud, using fan screws.
+- Use M2 screws to mount the shroud to the gpu.
 
 ## License
 
