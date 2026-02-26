@@ -11,7 +11,7 @@ NOTE: some screws are not a perfect fit, as the placement for some of the GPU's 
 
 ![Shroud Bottom Overview](img/MI50_92mm_cooler_bot.png)
 ![Shroud Top Overview](img/MI50_92mm_cooler_top.png)
-
+![Shroud Top Overview](img/MI50_92mm_cooler_real.jpg)
 ---
 
 ## Features
