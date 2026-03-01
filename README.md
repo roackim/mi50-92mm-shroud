@@ -6,7 +6,9 @@ OpenScad project, modular, designed to be easy to print on commons 25cm x 25cm p
 
 The conception is specifically tailored for **92mm x 92mm x 25mm fans** (I recommend the **Arctic P9 Max**  for its high static pressure and affordability).
 
-NOTE: some screws are not a perfect fit, as the placement for some of the GPU's m2 holes is not perfect yet. This could be improved.
+
+Note: some screws are not a perfect fit, as the placement for some of the GPU's m2 holes is not perfect yet. This could be improved.
+
 ---
 
 ![Shroud Bottom Overview](img/MI50_92mm_cooler_bot.png)
