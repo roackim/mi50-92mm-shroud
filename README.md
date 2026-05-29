@@ -43,8 +43,8 @@ You will find the STLs in the `output/` folder
 
 ## Printing Tips
 
-- Material: Use PETG or ABS. Standard PLA may soften under the heat generated during heavy LLM inference.
-- Infill: 20% or higher.
+- Material: Use PETG or ABS. Standard PLA may soften under the heat generated during heavy usage.
+- Infill: 25% or higher.
 - Walls: Use at least 2 perimeters for the screw holes to ensure they don't crack.
 
 ### Assembly tips
